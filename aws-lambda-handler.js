@@ -6,17 +6,18 @@ const handler = async (event) =>
     let response = getAwsLambdaResponseObject();
     try 
     {
-        const longitude = event[parans]['longitude'];
+        const id = event[parans]['id'];
+        const language = event[parans]['language'];
         const latitude  = event[parans]['latitude'];
-        const match = check(longitude, latitude);
+        const longitude = event[parans]['longitude'];
+        const match = check(id, language, longitude, latitude);
         if(match)
         {
-            response.body = {'msg': match.name};
+            response.body = JSON.stringify(match);
         }
         else
         {
             response.statusCode = 204;
-            response.body = {};
         }
     } 
     catch (error) 
